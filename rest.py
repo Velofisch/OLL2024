@@ -9,7 +9,7 @@ import api
 import urllib.parse
 
 hostName = ""
-serverPort = 5001
+serverPort = 5002
 
 class MyServer(BaseHTTPRequestHandler):
 	def do_OPTIONS(self):
@@ -79,16 +79,8 @@ class MyServer(BaseHTTPRequestHandler):
 		reply={}
 		reply['status']='ok'
 		reply['command']=command
-		if command=='/search':
-			reply=api.search(sdata)
-		elif command=='/status':
-			reply=api.status(sdata)
-		elif command=='/ui':
-			sdata['ui']=True
-			reply=api.search(sdata)			
-		elif command=='/docs':
-			sdata['docs']=True
-			reply=api.search(sdata)			
+		if command=='/parse':
+			reply=api.parse(sdata)
 		else:
 			reply['status']='error'
 			reply['error']="Unknown command: "+command
