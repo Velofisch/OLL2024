@@ -20,7 +20,7 @@ Status={}
 reNum=re.compile("BGE\s+\d+\s+[A-Z]+\s\d+")
 query_body={"size":20,"_source":{"excludes":["attachment.content"]},"track_total_hits":True,"query":{"bool":{"must":{"query_string":{"query":"","default_operator":"AND","type":"cross_fields","fields":["title.*^5","abstract.*^3","meta.*^10","attachment.content","reference^3"]}}}},"sort":[{"_score":"desc"},{"id":"desc"}]}
 query_url="https://entscheidsuche.pansoft.de:9200/entscheidsuche-*/_search"
-query_header="content-type: application/json"
+query_header={ "content-type": "application/json"}
 
 def parse(sdata):
 	print("search:",sdata)
