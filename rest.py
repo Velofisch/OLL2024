@@ -27,7 +27,7 @@ class MyServer(BaseHTTPRequestHandler):
 			print(commands)
 			command=commands[0]
 			sdata={}
-			if command in ['/search','/status','/ui']:
+			if command=='parse':
 				if len(commands)>1:
 					args=urllib.parse.unquote(commands[1])
 					print(args)
@@ -45,7 +45,7 @@ class MyServer(BaseHTTPRequestHandler):
 			commands=self.path.split("?",1)
 			print(commands)
 			command=commands[0]
-			if command in ['/search','/status','/ui','/docs']:
+			if command=="/parse":
 				if "application/json" in self.headers.get("Content-type").lower():
 					data = self.rfile.read(int(self.headers.get('Content-Length')))
 					sdata=json.loads(data)
