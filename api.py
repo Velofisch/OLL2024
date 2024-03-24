@@ -18,6 +18,9 @@ BASISURL="https://entscheidsuche.ch/docs"
 TEMPLATEKEYS=["URL","ID","text","exclude","title","type","source.name","source.logo","editors","authors","abstract","date","restart"]
 Status={}
 reNum=re.compile("BGE\s+\d+\s+[A-Z]+\s\d+")
+query_body='{"size":20,"_source":{"excludes":["attachment.content"]},"track_total_hits":true,"query":{"bool":{"must":{"query_string":{"query":"\"<num>\"","default_operator":"AND","type":"cross_fields","fields":["title.*^5","abstract.*^3","meta.*^10","attachment.content","reference^3"]}}}},"sort":[{"_score":"desc"},{"id":"desc"}]}'
+query_url="https://entscheidsuche.pansoft.de:9200/entscheidsuche-*/_search"
+query_header="content-type: application/json"
 
 def parse(sdata):
 	print("search:",sdata)
@@ -34,5 +37,13 @@ def parse(sdata):
 		match=reNum.findall(p['text'])
 		if match:
 			reply['message']="gefunden: "+", ".join(match)
+			links={}
+			reply['dump']=""
+			for i in match:
+				if not i in links:
+					response=requests.post(url=query_url, headers=query_header, data=query_body.replace("<num>",i))
+					reply['dump']+="..."+response.text
+					
+			
 	return reply
 
