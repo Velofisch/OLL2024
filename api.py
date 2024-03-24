@@ -41,7 +41,8 @@ def parse(sdata):
 			reply['dump']=""
 			for i in match:
 				if not i in links:
-					response=requests.post(url=query_url, headers=query_header, data=query_body.replace("<num>",i))
+					adapted_body=query_body.replace("<num>",i)
+					response=requests.post(url=query_url, headers=query_header, data=adapted_body)
 					reply['dump']+="..."+response.text
 					
 			
