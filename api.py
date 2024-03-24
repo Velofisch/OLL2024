@@ -31,9 +31,8 @@ def parse(sdata):
 			reply['warning']="Unknown parameter "+i
 			reply['status']="error"			
 	if reply['status']=='ok':
-		try:
-			match=reNum.findall(p['text'])
-			if match:
-				reply['message']="gefunden: "+", ".join(match)
+		match=reNum.findall(p['text'])
+		if match:
+			reply['message']="gefunden: "+", ".join(match)
 	return reply
 
