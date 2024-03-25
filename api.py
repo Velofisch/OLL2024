@@ -43,7 +43,7 @@ def parse(sdata):
 				if not i in links:
 					adapted_body=query_body
 					adapted_body['query']['bool']['must']['query_string']['query']="\""+i+"\""
-					response=requests.post(url=query_url, headers=query_header, data=json.dumps(adapted_body), verify=False)
+					response=requests.post(url=query_url, headers=query_header, data=json.dumps(adapted_body))
 					reply['dump']+="..."+response.text
 					
 			
