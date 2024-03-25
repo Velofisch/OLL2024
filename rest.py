@@ -7,6 +7,7 @@ import datetime
 import json
 import api
 import urllib.parse
+import cgi
 
 hostName = ""
 serverPort = 5002
@@ -42,21 +43,16 @@ class MyServer(BaseHTTPRequestHandler):
 	
 	def do_POST(self):
 		try:
-			commands=self.path.split("?",1)
-			print(commands)
-			command=commands[0]
-			if command=="/parse":
-				if "application/json" in self.headers.get("Content-type").lower():
-					data = self.rfile.read(int(self.headers.get('Content-Length')))
-					sdata=json.loads(data)
-				elif "application/x-www-form-urlencoded" in self.headers.get("Content-type").lower():
-					data = self.rfile.read(int(self.headers.get('Content-Length')))
-					data_str = data.decode('utf-8')
-					print(data_str)
-				else:
-					self.do_Error('Wrong Content-type: '+self.headers.get("Content-type")+' (should by application/json)')
+			ctype, pdict = cgi.parse_header(self.headers['content-type'])
+			if ctype== "application/json":
+				data = self.rfile.read(int(self.headers.get('Content-Length')))
+				sdata=json.loads(data)
+        	elif ctype == 'multipart/form-data':
+				pdict['boundary'] = bytes(pdict['boundary'], "utf-8")
+           		fields = cgi.parse_multipart(self.rfile, pdict)
+				print(fields)
 			else:
-				self.do_Error('Wrong Post command: '+self.path)
+				self.do_Error('Wrong Content-type: '+self.headers.get("Content-type")+' (should by application/json)')
 		except Exception as ex:
 			api.printException(ex,"do_Post")
 			self.do_Error('Wrong command: '+self.path)
