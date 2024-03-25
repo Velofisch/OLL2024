@@ -51,7 +51,8 @@ class MyServer(BaseHTTPRequestHandler):
 					sdata=json.loads(data)
 				elif "application/x-www-form-urlencoded" in self.headers.get("Content-type").lower():
 					data = self.rfile.read(int(self.headers.get('Content-Length')))
-					print(data)
+					data_str = data.decode('utf-8')
+					print(data_str)
 				else:
 					self.do_Error('Wrong Content-type: '+self.headers.get("Content-type")+' (should by application/json)')
 			else:
