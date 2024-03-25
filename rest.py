@@ -56,7 +56,7 @@ class MyServer(BaseHTTPRequestHandler):
 				content_length = int(self.headers['Content-Length'])
 				pdict['CONTENT-LENGTH'] = content_length
 				pdict['boundary'] = bytes(pdict['boundary'], "utf-8")
-				fields = cgi.parse_multipart(self.rfile, pdict)
+				sdata = cgi.parse_multipart(self.rfile, pdict)
 				print(fields)
 			else:
 				self.do_Error('Wrong Content-type: '+self.headers.get("Content-type")+' (should by application/json)')
