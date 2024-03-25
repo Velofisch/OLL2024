@@ -47,7 +47,7 @@ class MyServer(BaseHTTPRequestHandler):
 			if ctype == "application/json":
 				data = self.rfile.read(int(self.headers.get('Content-Length')))
 				sdata=json.loads(data)
-			elif ctype == 'multipart/form-data':
+			elif ctype == 'multipart/form-data' or 'application/x-www-form-urlencoded':
 				pdict['boundary'] = bytes(pdict['boundary'], "utf-8")
 				fields = cgi.parse_multipart(self.rfile, pdict)
 				print(fields)
