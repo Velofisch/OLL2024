@@ -44,6 +44,7 @@ class MyServer(BaseHTTPRequestHandler):
 	def do_POST(self):
 		try:
 			ctype, pdict = cgi.parse_header(self.headers['content-type'])
+			print(ctype)
 			if ctype == "application/json":
 				data = self.rfile.read(int(self.headers.get('Content-Length')))
 				sdata=json.loads(data)
