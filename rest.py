@@ -44,12 +44,12 @@ class MyServer(BaseHTTPRequestHandler):
 	def do_POST(self):
 		try:
 			ctype, pdict = cgi.parse_header(self.headers['content-type'])
-			if ctype== "application/json":
+			if ctype == "application/json":
 				data = self.rfile.read(int(self.headers.get('Content-Length')))
 				sdata=json.loads(data)
         	elif ctype == 'multipart/form-data':
 				pdict['boundary'] = bytes(pdict['boundary'], "utf-8")
-           		fields = cgi.parse_multipart(self.rfile, pdict)
+				fields = cgi.parse_multipart(self.rfile, pdict)
 				print(fields)
 			else:
 				self.do_Error('Wrong Content-type: '+self.headers.get("Content-type")+' (should by application/json)')
