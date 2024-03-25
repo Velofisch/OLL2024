@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Verlinksservice Tester</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+  </head>
+  <body>
+    <main>
+        <h1>Verlinksservice Tester</h1>  
+    </main>
+	<form action="http://v2202109132150164038.luckysrv.de:5002/parse" method="POST">
+    <p><label class="h2">Quelle</label><br>
+    <input type="text" name="quelle" id="quelle" maxlength="30"></input>
+    <p><label class="h2">Logo-URL</label><br>
+    <input type="text" name="logo" id="logo" maxlength="80"></input>
+    <p><label class="h2">Titel des Dokumentes</label><br>
+    <input type="text" name="titel" id="titel" maxlength="200"></input>
+    <p><label class="h2">Abstrakt</label><br>
+    <textarea type="text" name="abstrakt" id="abstrakt" maxlength="200" rows="4" cols="80"></textarea>
+    <p><label class="h2">URL</label><br>
+    <input type="text" name="url" id="url" maxlength="80"></input>
+    <p><label class="h2">Datei</label><br>
+    <input type="file" name="datei" id="datei"></input>
+    <p><label class="h2">Exclude</label><br>
+    <input type="text" name="exclude" id="exclude" maxlength="80"></input>
+    <p><label class="h2">Bestehende Links erhalten</label><br>
+    <input type="checkbox" id="behalten" name="behalten" value="behalten">
+    <p><button type="submit">Eingaben absenden</button>
+    </form>
+  </body>
+</html>
