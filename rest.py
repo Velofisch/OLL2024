@@ -43,6 +43,8 @@ class MyServer(BaseHTTPRequestHandler):
 	
 	def do_POST(self):
 		commands=self.path.split("?",1)
+		command=commands[0]
+		
 		try:
 			ctype, pdict = cgi.parse_header(self.headers['content-type'])
 			print(ctype)
